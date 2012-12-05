@@ -5,8 +5,9 @@
 function espresso_fes_form_output() {
 	global $org_options, $espresso_premium;
 	ob_start();
+	//wp_enqueue_style('jquery-ui-style', EVENT_ESPRESSO_PLUGINFULLURL . 'css/jquery-ui-1.9.2.custom.min.css');
 	wp_register_script('jquery.validate.js', (EVENT_ESPRESSO_PLUGINFULLURL . "scripts/jquery.validate.min.js"), false, '1.8.1');
-	wp_print_scripts('jquery.validate.js');
+	wp_enqueue_script('jquery.validate.js');
 
 	?>
 <div class="event_espresso_form_wrapper">
