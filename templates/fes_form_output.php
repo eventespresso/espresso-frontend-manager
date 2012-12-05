@@ -86,12 +86,14 @@ function espresso_fes_form_output() {
 			<?php _e('All events <strong>require</strong> registration start/end dates and start/end times in order to display properly on your pages.', 'event_espresso'); ?>
 			</span></p>
 		<?php
-			if ((isset($org_options['use_event_timezones']) || $org_options['use_event_timezones'] = 'Y') && $espresso_premium == true) { ?>
+			/*
+			//Doesn't hide the display for some reason.
+			if ((isset($org_options['use_event_timezones']) && $org_options['use_event_timezones'] = 'Y') && $espresso_premium == true) { ?>
 		<p><span class="run-in">
-			<?php _e('Current Server Time:', 'event_espresso'); ?>
-			</span> <span class="current-date"> <?php echo date(get_option('date_format')) . ' ' . date(get_option('time_format')); ?></span></p>
+			<strong><?php _e('Current Server Time:', 'event_espresso'); ?></strong>
+			</span><br /><span class="current-date"> <?php echo date(get_option('date_format')) . ' ' . date(get_option('time_format')); ?></span></p>
 		<?php
-			}
+			}*/
 			?>
 			</div>
 	</div>
