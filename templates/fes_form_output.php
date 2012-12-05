@@ -109,40 +109,42 @@ function espresso_fes_form_output() {
 			<?php _e('Event Venue', 'event_espresso'); ?>
 		</h3>
 		<div class="event-data-display ui-widget-content ui-corner-bottom">
+		<label class="width3 first" for="venue_name"><?php _e('Search for a Venue', 'event_espresso'); ?></label>
 		<input id="ee_fes_autocomplete" />
 		<input id="venue_id" name="venue_id[]" type="hidden" value="0">
 		<input id="add_new_venue_dynamic" name="add_new_venue_dynamic" type="hidden" value="true">
 		<p><a href="" id="toggle_venue"> <?php _e('+ Add a new venue', 'event_espresso'); ?></a></p>
 		<div id="new_venue_info" style="display:none;">
+			<br />
 			<p class="event_form_field">
-				<label class="width3 first" for="venue_name"><?php _e('Venue Name', 'event_espresso'); ?>
+				<label class="width3 first" for="venue_name"><?php _e('Venue Name', 'event_espresso'); ?></label>
 					<input id="venue_name" name="venue_name" type="text" class="text" value="" />
-				</label>
+				
 			</p>
 			<p class="event_form_field">
-				<label class="width3 first" for="venue_address"><?php _e('Address', 'event_espresso'); ?>
+				<label class="width3 first" for="venue_address"><?php _e('Address', 'event_espresso'); ?></label>
 					<input id="venue_address" name="venue_address" type="text" class="text" value="" />
-				</label>
+				
 			</p>
 			<p class="event_form_field">
-				<label class="width3 first" for="venue_address2"><?php _e('Address Line 2', 'event_espresso'); ?>
+				<label class="width3 first" for="venue_address2"><?php _e('Address Line 2', 'event_espresso'); ?></label>
 					<input id="venue_address2" name="venue_address2" type="text" class="text" value="" />
-				</label>
+				
 			</p>
 			<p class="event_form_field">
-				<label class="width2 first" for="venue_city"><?php _e('City', 'event_espresso'); ?>
+				<label class="width2 first" for="venue_city"><?php _e('City', 'event_espresso'); ?></label>
 					<input id="venue_city" name="venue_city" type="text" class="text" value="" />
-				</label>
+				
 			</p>
 			<p class="event_form_field">
-				<label class="width2 first" for="venue_state"><?php _e('State', 'event_espresso'); ?>
+				<label class="width2 first" for="venue_state"><?php _e('State', 'event_espresso'); ?></label>
 					<input id="venue_state" name="venue_state" type="text" class="text" value="" />
-				</label>
+				
 			</p>
 			<p class="event_form_field">
-				<label class="width1 first" for="venue_zip"><?php _e('Postal Code', 'event_espresso'); ?>
+				<label class="width1 first" for="venue_zip"><?php _e('Postal Code', 'event_espresso'); ?></label>
 					<input id="venue_zip" name="venue_zip" class="text" value="" type="text">
-				</label>
+				
 			</p>
 		</div>
 		</div>
