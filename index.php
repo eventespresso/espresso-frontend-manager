@@ -140,10 +140,10 @@ function espresso_create_event_form(){
 	//Requires the event management functions
 	require_once(EVENT_ESPRESSO_INCLUDES_DIR.'event-management/event_functions.php');
 	
-	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "fes_form_output.php")) {
-		require_once(EVENT_ESPRESSO_TEMPLATE_DIR . "fes_form_output.php");
+	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "fem_form_output.php")) {
+		require_once(EVENT_ESPRESSO_TEMPLATE_DIR . "fem_form_output.php");
 	} else {
-		require_once(ESPRESSO_FEM_FULL_PATH . 'templates/fes_form_output.php');
+		require_once(ESPRESSO_FEM_FULL_PATH . 'templates/fem_form_output.php');
 	}
 	echo ee_fem_form_output();
 }
