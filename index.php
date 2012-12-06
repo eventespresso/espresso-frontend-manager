@@ -90,20 +90,30 @@ function ee_fes_save_event(){
 //Create the form output shortcode
 add_shortcode('ESPRESSO_CREATE_EVENT_FORM', 'espresso_create_event_form');
 function espresso_create_event_form(){
-	global $org_options,$use_themeroller;
+	global $org_options, $use_themeroller, $use_venues;
 	
+	//Load the datepicker styles
+	wp_register_style('jquery-ui-style-datepicker', ESPRESSO_EVENT_SUBMISSION_FULL_URL . 'css/ui-ee-theme/jquery.ui.datepicker.css');
+	wp_enqueue_style( 'jquery-ui-style-datepicker' );
+		
 	//Decide if we are using Themeroller
 	if (isset($org_options['style_settings']['enable_default_style']) && $org_options['style_settings']['enable_default_style'] == 'Y'){
 		$use_themeroller = TRUE;
 	}else{
 		$use_themeroller = FALSE;
-		//This is so we can show a nice looking date picker
-		wp_enqueue_style('jquery-ui-style', EVENT_ESPRESSO_PLUGINFULLURL . 'templates/css/themeroller/smoothness/style.css');
+		//This is so we can show a nice looking date picker if Themeroller is turned off.
+		wp_register_style('jquery-ui-style', EVENT_ESPRESSO_PLUGINFULLURL . 'templates/css/themeroller/smoothness/style.css');
+		wp_enqueue_style( 'jquery-ui-style' );
 	}
 	
 	//Load the validation scripts
 	wp_register_script('jquery.validate.js', (EVENT_ESPRESSO_PLUGINFULLURL . "scripts/jquery.validate.min.js"), false, '1.8.1');
 	wp_enqueue_script('jquery.validate.js');
+	
+	$use_venues = FALSE;
+	if (isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y'){
+		$use_venues = TRUE;
+	}
 	
 	if ( !is_user_logged_in() ) {
 		echo '<div class="ee_fes_error">'.sprintf(__('You must be <a href="%s">logged-in</a> to create events.', 'event_espresso'), wp_login_url( get_permalink() )).'</div>';

@@ -3,8 +3,7 @@
 //Before editing this file, please move it to the 'wp-content/uploads/espresso/templates' directory.
 
 function espresso_fes_form_output() {
-	global $use_themeroller;
-
+	global $org_options, $use_themeroller, $use_venues;
 	//Build the form
 	ob_start();
 	?>
@@ -105,6 +104,8 @@ function espresso_fes_form_output() {
 		<p class="event_form_field ee_fes_form_field"><?php echo event_espresso_categories_dd(0, true); //Shows a dropdown of categories ?></p>
 		</div>
 	</div>
+	
+	<?php if ($use_venues == TRUE):?>
 	<div id="add-venue" class="event_data event-data-display event-display-boxes <?php echo $use_themeroller == TRUE ? 'ui-widget':''; ?>">
 		<h3 class="event_title <?php echo $use_themeroller == TRUE ? 'ui-widget-header ui-corner-top':''; ?>">
 			<?php _e('Event Venue', 'event_espresso'); ?>
@@ -144,6 +145,7 @@ function espresso_fes_form_output() {
 		</div>
 		</div>
 	</div>
+	<?php endif;?>
 	<?php /* DO NOT REMOVE  */?>
 	<?php wp_nonce_field('espresso_form_check', 'ee_fes_nonce'); //Security check using nonce ?>
 	<input type="hidden" name="ee_fes_action" value="ee_fes_add" />
@@ -153,7 +155,6 @@ function espresso_fes_form_output() {
 	</p>
 </form>
 </div>
-	<?php /* Autocomplete Script */?>
 	<script type="text/javascript" charset="utf-8">
 			//<![CDATA[
 			jQuery(document).ready(function() {
@@ -169,7 +170,7 @@ function espresso_fes_form_output() {
 					jQuery("#end_date").val(jQuery(this).val());
 				});
 				//End Date selector
-				
+				<?php if ($use_venues == TRUE):?>
 				//Venue selector
 				//Found this solution: http://www.codingforums.com/showthread.php?t=198167
 				jQuery("#toggle_venue").click(function(j){
@@ -231,7 +232,7 @@ function espresso_fes_form_output() {
 					}
 				});
 				//End auto complete
-				
+				<?php endif;?>
 				//Form validation
 				jQuery(function(){
 					jQuery('#ee_fes_form').validate();
