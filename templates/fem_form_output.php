@@ -114,7 +114,7 @@ function ee_fem_form_output() {
 			<div class="event-data-display <?php echo $use_themeroller == TRUE ? 'ui-widget-content ui-corner-bottom':''; ?>">
 				<table class="fem-pricing-table" <?php echo $members_active ?>width="100%" border="0" cellpadding="5">
 					<tr valign="top">
-						<td id="standard-pricing" class="fem-pricing-td"><?php event_espresso_multi_price_update($event_id); //Standard pricing ?></td>
+						<td id="standard-pricing" class="fem-pricing-td"><?php event_espresso_multi_price_update(0); //Standard pricing ?></td>
 						<?php
 							//If the members addon is installed, define member only event settings
 							if  (defined('EVENTS_MEMBER_REL_TABLE') && $espresso_premium == true) { ?>
