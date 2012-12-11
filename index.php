@@ -123,7 +123,7 @@ function espresso_create_event_form(){
 	if ( function_exists('espresso_permissions_pro_run') ){
 		global $espresso_manager;
 		
-		if ( $espresso_manager['minimum_fes_level'] > espresso_check_user_level() ){
+		if ( $espresso_manager['minimum_fem_level'] > espresso_check_user_level() ){
 			echo '<div class="ee_fem_error">'.sprintf(__('Sorry, you do not have access to create events.', 'event_espresso'), wp_login_url( get_permalink() )).'</div>';
 			return;
 		}
