@@ -194,6 +194,12 @@ function ee_fem_form_output() {
 						</label>
 						<input id="venue_zip" name="venue_zip" class="text" value="" type="text">
 					</p>
+					<p class="event_form_field ee_fem_form_field">
+						<label class="width2 first" for="venue_country">
+							<?php _e('Country', 'event_espresso'); ?>
+						</label>
+						<input id="venue_country" name="venue_country" type="text" class="text" value="" />
+					</p>
 				</div>
 			</div>
 		</div>
@@ -282,6 +288,7 @@ function ee_fem_form_output() {
 						jQuery("#venue_city").val('');
 						jQuery("#venue_state").val('');
 						jQuery("#venue_zip").val('');
+						jQuery("#venue_country").val('');
 					}
 				});
 				//End auto complete
