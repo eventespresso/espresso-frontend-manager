@@ -178,10 +178,9 @@ function ee_fem_template_settings() {
 										<tr>
 											<th> <label>
 													<?php _e('Show Category Selection?', 'event_espresso'); ?>
-													<?php //echo apply_filters('filter_hook_espresso_help', 'enable_styles_info'); ?>
 												</label>
 											</th>
-											<td><?php echo select_input('enable_fem_category_select', $values, $org_options['fem_settings']['enable_fem_category_select'], 'id="enable_fem_category_select"'); ?> <a class="thickbox"  href="#TB_inline?height=400&width=500&inlineId=enable_fem_category_select" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" /></a><br />
+											<td><?php echo select_input('enable_fem_category_select', $values, $org_options['fem_settings']['enable_fem_category_select'], 'id="enable_fem_category_select"'); ?> <br />
 												<span class="description">
 													<?php _e('Enables category selection (make sure you have categories).', 'event_espresso'); ?>
 												</span></td>
@@ -190,11 +189,20 @@ function ee_fem_template_settings() {
 											<th> <label>
 													<?php _e('Show Pricing Section?', 'event_espresso'); ?>
 												</label>
-												<?php //echo apply_filters('filter_hook_espresso_help', 'themeroller_info'); ?>
 											</th>
-											<td><?php echo select_input('enable_fem_pricing_section', $values, $org_options['fem_settings']['enable_fem_pricing_section'], 'id="enable_fem_pricing_section"'); ?> <a class="thickbox"  href="#TB_inline?height=400&width=500&inlineId=enable_fem_pricing_section" target="_blank"><img src="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>images/question-frame.png" width="16" height="16" /></a><br />
+											<td><?php echo select_input('enable_fem_pricing_section', $values, $org_options['fem_settings']['enable_fem_pricing_section'], 'id="enable_fem_pricing_section"'); ?> <br />
 												<span class="description">
-													<?php _e('Allows users to add a single price to events.', 'event_espresso'); ?>
+													<?php _e('Allows users to add prices to events.', 'event_espresso'); ?>
+												</span></td>
+										</tr>
+										<tr>
+											<th> <label>
+													<?php _e('Show Venue Section?', 'event_espresso'); ?>
+												</label>
+											</th>
+											<td><?php echo select_input('enable_fem_venue_section', $values, $org_options['fem_settings']['enable_fem_venue_section'], 'id="enable_fem_venue_section"'); ?> <br />
+												<span class="description">
+													<?php _e('Allows users to assign venues to events.', 'event_espresso'); ?>
 												</span></td>
 										</tr>
 									</tbody>

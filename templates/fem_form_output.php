@@ -142,7 +142,7 @@ function ee_fem_form_output() {
 			</div>
 		</div>
 		<?php endif; ?>
-		<?php if ($use_venues == TRUE):?>
+		<?php if ($use_venues == TRUE && $org_options['fem_settings']['enable_fem_venue_section'] == 'Y'):?>
 		<div id="add-venue" class="event_data event-data-display event-display-boxes <?php echo $use_themeroller == TRUE ? 'ui-widget':''; ?>">
 			<h3 class="event_title <?php echo $use_themeroller == TRUE ? 'ui-widget-header ui-corner-top':''; ?>">
 				<?php _e('Event Venue', 'event_espresso'); ?>
@@ -223,7 +223,7 @@ function ee_fem_form_output() {
 				});
 				//End Date selector
 				
-				<?php if ($use_venues == TRUE):?>
+				<?php if ($use_venues == TRUE && $org_options['fem_settings']['enable_fem_venue_section'] == 'Y'):?>
 				//Venue selector
 				//Found this solution: http://www.codingforums.com/showthread.php?t=198167
 				jQuery("#toggle_venue").click(function(j){
