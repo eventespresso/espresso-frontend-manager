@@ -27,13 +27,13 @@
 
  */
 
-function espresso_event_submission_version() {
+function espresso_fem_version() {
 	return '0.0.1';
 }
 
 //Register the plugin
-register_activation_hook(__FILE__, 'espresso_event_submission_install');
-register_deactivation_hook(__FILE__, 'espresso_event_submission_deactivate');
+register_activation_hook(__FILE__, 'espresso_fem_install');
+register_deactivation_hook(__FILE__, 'espresso_fem_deactivate');
 
 //Define the plugin url
 $wp_plugin_url = WP_PLUGIN_URL;
@@ -47,27 +47,26 @@ if (is_ssl()) {
 }
 
 
-define("ESPRESSO_EVENT_SUBMISSION_PATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
-define("ESPRESSO_EVENT_SUBMISSION_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_EVENT_SUBMISSION_PATH);
-define("ESPRESSO_EVENT_SUBMISSION_FULL_URL", $wp_plugin_url . ESPRESSO_EVENT_SUBMISSION_PATH);
-define("ESPRESSO_EVENT_SUBMISSION_ACTIVE", TRUE);
+define("ESPRESSO_FEM_PATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
+define("ESPRESSO_FEM_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_FEM_PATH);
+define("ESPRESSO_FEM_FULL_URL", $wp_plugin_url . ESPRESSO_FEM_PATH);
+define("ESPRESSO_FEM_ACTIVE", TRUE);
 
-if (!function_exists('espresso_event_submission_install')) {
-    function espresso_event_submission_install() {
-        update_option('espresso_event_submission_version', espresso_event_submission_version());
-        update_option('espresso_event_submission_active', 1);
-       // global $wpdb;
+if (!function_exists('espresso_fem_install')) {
+    function espresso_fem_install() {
+        update_option('espresso_fem_version', espresso_fem_version());
+        update_option('espresso_fem_active', 1);
     }
 }
 
-if (!function_exists('espresso_event_submission_deactivate')) {
-    function espresso_event_submission_deactivate() {
-        update_option('espresso_event_submission_active', 0);
+if (!function_exists('espresso_fem_deactivate')) {
+    function espresso_fem_deactivate() {
+        update_option('espresso_fem_active', 0);
     }
 }
 
-if (!function_exists('espresso_event_submission_init')) {
-    function espresso_event_submission_init() {
+if (!function_exists('espresso_fem_init')) {
+    function espresso_fem_init() {
 		//Load any code here that needs to be intialized with WordPress
     }
 }
@@ -79,16 +78,11 @@ if (!function_exists('espresso_event_submission_init')) {
 	wp_enqueue_script('jquery-ui-datepicker');
 }*/
 
-function ee_fes_print_styles(){
-	wp_register_style('jquery-ui-style-datepicker', ESPRESSO_EVENT_SUBMISSION_FULL_URL . 'css/ui-ee-theme/jquery.ui.datepicker.css');
-	wp_print_styles( 'jquery-ui-style-datepicker' );
-}
-
-function ee_fes_save_event(){
+function ee_fem_save_event(){
 	require_once(EVENT_ESPRESSO_INCLUDES_DIR.'event-management/insert_event.php');
 }
 
-/*function ee_fes_save_venue(){
+/*function ee_fem_save_venue(){
 	require_once(EVENT_ESPRESSO_INCLUDES_DIR.'admin-files/venue-management/add_venue_to_db.php');
 }*/
 
@@ -96,28 +90,49 @@ function ee_fes_save_event(){
 //Create the form output shortcode
 add_shortcode('ESPRESSO_CREATE_EVENT_FORM', 'espresso_create_event_form');
 function espresso_create_event_form(){
+	global $org_options, $use_themeroller, $use_venues;
+	
+	//Load the datepicker styles
+	wp_register_style('jquery-ui-style-datepicker', ESPRESSO_FEM_FULL_URL . 'css/ui-ee-theme/jquery.ui.datepicker.css');
+	wp_enqueue_style( 'jquery-ui-style-datepicker' );
+		
+	//Decide if we are using Themeroller
+	if (isset($org_options['style_settings']['enable_default_style']) && $org_options['style_settings']['enable_default_style'] == 'Y'){
+		$use_themeroller = TRUE;
+	}else{
+		$use_themeroller = FALSE;
+		//This is so we can show a nice looking date picker if Themeroller is turned off.
+		wp_register_style('jquery-ui-style', EVENT_ESPRESSO_PLUGINFULLURL . 'templates/css/themeroller/smoothness/style.css');
+		wp_enqueue_style( 'jquery-ui-style' );
+	}
+	
+	//Load the validation scripts
+	wp_register_script('jquery.validate.js', (EVENT_ESPRESSO_PLUGINFULLURL . "scripts/jquery.validate.min.js"), false, '1.8.1');
+	wp_enqueue_script('jquery.validate.js');
+	
+	$use_venues = FALSE;
+	if (isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y'){
+		$use_venues = TRUE;
+	}
 	
 	if ( !is_user_logged_in() ) {
-		echo '<div class="ee_fes_error">'.sprintf(__('You must be <a href="%s">logged-in</a> to create events.', 'event_espresso'), wp_login_url( get_permalink() )).'</div>';
+		echo '<div class="ee_fem_error">'.sprintf(__('You must be <a href="%s">logged-in</a> to create events.', 'event_espresso'), wp_login_url( get_permalink() )).'</div>';
 		return;
 	}
 	
 	if ( function_exists('espresso_permissions_pro_run') ){
 		global $espresso_manager;
 		
-		if ( $espresso_manager['minimum_fes_level'] > espresso_check_user_level() ){
-			echo '<div class="ee_fes_error">'.sprintf(__('Sorry, you do not have access to create events.', 'event_espresso'), wp_login_url( get_permalink() )).'</div>';
+		if ( $espresso_manager['minimum_fem_level'] > espresso_check_user_level() ){
+			echo '<div class="ee_fem_error">'.sprintf(__('Sorry, you do not have access to create events.', 'event_espresso'), wp_login_url( get_permalink() )).'</div>';
 			return;
 		}
 	}
 	
-	if ( isset($_REQUEST['ee_fes_action']) && $_REQUEST['ee_fes_action'] == 'ee_fes_add') {
-		ee_fes_save_event();
+	if ( isset($_REQUEST['ee_fem_action']) && $_REQUEST['ee_fem_action'] == 'ee_fem_add') {
+		ee_fem_save_event();
 		return add_event_to_db();
 	}
-	
-	//Load styles
-	ee_fes_print_styles();
 	
 	//Load scripts
 	add_action('wp_footer', 'ee_load_jquery_autocomplete_scripts');
@@ -125,10 +140,85 @@ function espresso_create_event_form(){
 	//Requires the event management functions
 	require_once(EVENT_ESPRESSO_INCLUDES_DIR.'event-management/event_functions.php');
 	
-	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "fes_form_output.php")) {
-		require_once(EVENT_ESPRESSO_TEMPLATE_DIR . "fes_form_output.php");
+	if (file_exists(EVENT_ESPRESSO_TEMPLATE_DIR . "fem_form_output.php")) {
+		require_once(EVENT_ESPRESSO_TEMPLATE_DIR . "fem_form_output.php");
 	} else {
-		require_once(ESPRESSO_EVENT_SUBMISSION_FULL_PATH . 'templates/fes_form_output.php');
+		require_once(ESPRESSO_FEM_FULL_PATH . 'templates/fem_form_output.php');
 	}
-	echo espresso_fes_form_output();
+	echo ee_fem_form_output();
 }
+
+function ee_fem_template_settings() {
+	global $org_options;
+	$values = array(
+			array('id' => 'Y', 'text' => __('Yes', 'event_espresso')),
+			array('id' => 'N', 'text' => __('No', 'event_espresso'))
+	);
+	?>
+	<div class="metabox-holder">
+					<div class="postbox">
+						<div title="Click to toggle" class="handlediv"><br />
+						</div>
+						<h3 class="hndle">
+							<?php _e('Front-end Event Manager', 'event_espresso'); ?>
+						</h3>
+						<div class="inside">
+							<div class="padding">
+								<?php
+								/*if (isset($org_options['enable_default_style'])) {
+									include('style_settings.php');
+								}*/
+								?>
+								<h2>
+									<?php _e('Template Settings', 'event_espresso'); ?>
+								</h2>
+								<!-- FEM Template Settings -->
+								<table class="form-table">
+									<tbody>
+										<tr>
+											<th> <label>
+													<?php _e('Show Category Selection?', 'event_espresso'); ?>
+												</label>
+											</th>
+											<td><?php echo select_input('enable_fem_category_select', $values, $org_options['fem_settings']['enable_fem_category_select'], 'id="enable_fem_category_select"'); ?> <br />
+												<span class="description">
+													<?php _e('Enables category selection (make sure you have categories).', 'event_espresso'); ?>
+												</span></td>
+										</tr>
+										<tr>
+											<th> <label>
+													<?php _e('Show Pricing Section?', 'event_espresso'); ?>
+												</label>
+											</th>
+											<td><?php echo select_input('enable_fem_pricing_section', $values, $org_options['fem_settings']['enable_fem_pricing_section'], 'id="enable_fem_pricing_section"'); ?> <br />
+												<span class="description">
+													<?php _e('Allows users to add prices to events.', 'event_espresso'); ?>
+												</span></td>
+										</tr>
+										<tr>
+											<th> <label>
+													<?php _e('Show Venue Section?', 'event_espresso'); ?>
+												</label>
+											</th>
+											<td><?php echo select_input('enable_fem_venue_section', $values, $org_options['fem_settings']['enable_fem_venue_section'], 'id="enable_fem_venue_section"'); ?> <br />
+												<span class="description">
+													<?php _e('Allows users to assign venues to events.', 'event_espresso'); ?>
+												</span></td>
+										</tr>
+									</tbody>
+								</table>
+								<p>
+									<input class="button-primary" type="submit" name="Submit" value="<?php _e('Save Options', 'event_espresso'); ?>" id="save_organization_setting_3" />
+								</p>
+							</div>
+							<!-- / .padding --> 
+						</div>
+						<!-- / .inside --> 
+					</div>
+					<!-- / .postbox --> 
+				</div>
+				<!-- / .metabox-holder -->
+	<?php
+
+}
+add_action( 'action_hook_espresso_fem_template_settings', 'ee_fem_template_settings' );
