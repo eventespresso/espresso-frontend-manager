@@ -205,7 +205,7 @@ function ee_fem_form_output() {
 		</div>
 		<?php endif;?>
 		<?php /* DO NOT REMOVE  */?>
-		<?php wp_nonce_field('espresso_form_check', 'ee_fem_nonce'); //Security check using nonce ?>
+		<?php wp_nonce_field('espresso_verify_insert_event_nonce', 'nonce_verify_insert_event'); //Security check using nonce ?>
 		<input type="hidden" name="ee_fem_action" value="ee_fem_add" />
 		<?php /* End DO NOT REMOVE */?>
 		<p class="register-link-footer">
