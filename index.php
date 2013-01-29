@@ -4,7 +4,7 @@
   Plugin URI: http://eventespresso.com/
   Description: Tool for creating events from the front-end of your WordPress website. Add [ESPRESSO_CREATE_EVENT_FORM] to a page.
 
-  Version: 0.0.1-DEV
+  Version: 1.0-BETA
 
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
@@ -28,7 +28,7 @@
  */
 
 function espresso_fem_version() {
-	return '0.0.1-DEV';
+	return '1.0-BETA';
 }
 
 //Register the plugin
