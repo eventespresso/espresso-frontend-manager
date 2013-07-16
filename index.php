@@ -123,7 +123,7 @@ function espresso_create_event_form(){
 	}
 	
 	//Load the validation scripts
-	wp_register_script('jquery.validate.js', (EVENT_ESPRESSO_PLUGINFULLURL . "scripts/jquery.validate.min.js"), false, '1.8.1');
+	wp_register_script('jquery.validate.js', (EVENT_ESPRESSO_PLUGINFULLURL . "scripts/jquery.validate.min.js"), array('jquery'), '1.8.1');
 	wp_enqueue_script('jquery.validate.js');
 	
 	//Check if using venues
