@@ -44,9 +44,12 @@ function ee_fem_load_pue_update() {
 		$api_key = $org_options['site_license_key'];
 		$host_server_url = 'http://eventespresso.com';
 		$plugin_slug = array(
-			'premium' => array('p' => 'espresso-frontend-event-manager'),
-			'prerelease' => array('b' => 'espresso-frontend-event-manager-pr')
-			);
+			// remove following line when releasing this version to stable
+			'premium' => array('b' => 'espresso-frontend-event-manager-pr'),
+			// uncomment following line when releasing this version to stable
+    		// 'premium' => array('p' => 'eespresso-frontend-event-manager'),
+   			'prerelease' => array('b' => 'espresso-frontend-event-manager-pr')
+		);
 		$options = array(
 			'apikey' => $api_key,
 			'lang_domain' => 'event_espresso',
