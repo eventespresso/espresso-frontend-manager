@@ -4,7 +4,7 @@
   Plugin URI: http://eventespresso.com/
   Description: Tool for creating events from the front-end of your WordPress website. Add [ESPRESSO_CREATE_EVENT_FORM] to a page.
 
-  Version: 1.0.1-DEV
+  Version: 1.0.1.b
 
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
@@ -28,8 +28,42 @@
  */
 
 function espresso_fem_version() {
-	return '1.0.1-DEV';
+	return '1.0.1.b';
 }
+
+
+//Update notifications  (i'm just going to hook this in with espresso_core_update_api rather than create another action hook in core) /de
+add_action('action_hook_espresso_core_update_api', 'ee_fem_load_pue_update');
+function ee_fem_load_pue_update() {
+	global $org_options, $espresso_check_for_updates;
+	if ( $espresso_check_for_updates == false )
+		return;
+		
+	if (file_exists(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php')) { //include the file 
+		require(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php' );
+		$api_key = $org_options['site_license_key'];
+		$host_server_url = 'http://eventespresso.com';
+		$plugin_slug = array(
+			// remove following line when releasing this version to stable
+			'premium' => array('b' => 'espresso-frontend-event-manager-pr'),
+			// uncomment following line when releasing this version to stable
+    		// 'premium' => array('p' => 'eespresso-frontend-event-manager'),
+   			'prerelease' => array('b' => 'espresso-frontend-event-manager-pr')
+		);
+		$options = array(
+			'apikey' => $api_key,
+			'lang_domain' => 'event_espresso',
+			'checkPeriod' => '24',
+			'option_key' => 'site_license_key',
+			'options_page_slug' => 'event_espresso',
+			'plugin_basename' => plugin_basename(__FILE__),
+			'use_wp_update' => FALSE, //if TRUE then you want FREE versions of the plugin to be updated from WP
+		);
+		$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
+	}
+}
+
+
 
 //Register the plugin
 register_activation_hook(__FILE__, 'espresso_fem_install');
@@ -97,7 +131,7 @@ function espresso_create_event_form(){
 	}
 	
 	//Load the validation scripts
-	wp_register_script('jquery.validate.js', (EVENT_ESPRESSO_PLUGINFULLURL . "scripts/jquery.validate.min.js"), false, '1.8.1');
+	wp_register_script('jquery.validate.js', (EVENT_ESPRESSO_PLUGINFULLURL . "scripts/jquery.validate.min.js"), array('jquery'), '1.8.1');
 	wp_enqueue_script('jquery.validate.js');
 	
 	//Check if using venues
