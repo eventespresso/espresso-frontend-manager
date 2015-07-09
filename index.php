@@ -4,12 +4,12 @@
   Plugin URI: http://eventespresso.com/
   Description: Tool for creating events from the front-end of your WordPress website. Add [ESPRESSO_CREATE_EVENT_FORM] to a page.
 
-  Version: 1.0.1.b
+  Version: 1.0.2.b
 
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
 
-  Copyright (c) 2012 Event Espresso  All Rights Reserved.
+  Copyright (c) 2015 Event Espresso  All Rights Reserved.
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
  */
 
 function espresso_fem_version() {
-	return '1.0.1.b';
+	return '1.0.2.b';
 }
 
 
