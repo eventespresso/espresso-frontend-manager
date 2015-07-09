@@ -19,7 +19,7 @@ function ee_fem_form_output() {
 					<label class="" for="event_title_field">
 						<?php _e('Event Title', 'event_espresso'); ?><em>*</em></label>
 					<br />
-					<input class="required" name="event" tabindex="1" value="" id="event_title_field" type="text">
+					<input class="required" name="event" tabindex="1" value="" id="event_title_field" type="text" maxlength="199" />
 									</div>
 				<div class="event_form_field ee_fem_form_field reg_limit">
 					<label class="ee_fem-reg-limit-label" for="reg_limit">
@@ -162,43 +162,43 @@ function ee_fem_form_output() {
 						<label class="width3 first" for="venue_name">
 							<?php _e('Venue Name', 'event_espresso'); ?>
 						</label>
-						<input id="venue_name" name="venue_name" type="text" class="text" value="" />
+						<input id="venue_name" name="venue_name" type="text" class="text" value="" maxlength="249" />
 					</p>
 					<p class="event_form_field ee_fem_form_field">
 						<label class="width3 first" for="venue_address">
 							<?php _e('Address', 'event_espresso'); ?>
 						</label>
-						<input id="venue_address" name="venue_address" type="text" class="text" value="" />
+						<input id="venue_address" name="venue_address" type="text" class="text" value="" maxlength="249" />
 					</p>
 					<p class="event_form_field ee_fem_form_field">
 						<label class="width3 first" for="venue_address2">
 							<?php _e('Address Line 2', 'event_espresso'); ?>
 						</label>
-						<input id="venue_address2" name="venue_address2" type="text" class="text" value="" />
+						<input id="venue_address2" name="venue_address2" type="text" class="text" value="" maxlength="249" />
 					</p>
 					<p class="event_form_field ee_fem_form_field">
 						<label class="width2 first" for="venue_city">
 							<?php _e('City', 'event_espresso'); ?>
 						</label>
-						<input id="venue_city" name="venue_city" type="text" class="text" value="" />
+						<input id="venue_city" name="venue_city" type="text" class="text" value="" maxlength="249" />
 					</p>
 					<p class="event_form_field ee_fem_form_field">
 						<label class="width2 first" for="venue_state">
 							<?php _e('State', 'event_espresso'); ?>
 						</label>
-						<input id="venue_state" name="venue_state" type="text" class="text" value="" />
+						<input id="venue_state" name="venue_state" type="text" class="text" value="" maxlength="249" />
 					</p>
 					<p class="event_form_field ee_fem_form_field">
 						<label class="width1 first" for="venue_zip">
 							<?php _e('Postal Code', 'event_espresso'); ?>
 						</label>
-						<input id="venue_zip" name="venue_zip" class="text" value="" type="text">
+						<input id="venue_zip" name="venue_zip" class="text" value="" type="text" maxlength="249" />
 					</p>
 					<p class="event_form_field ee_fem_form_field">
 						<label class="width2 first" for="venue_country">
 							<?php _e('Country', 'event_espresso'); ?>
 						</label>
-						<input id="venue_country" name="venue_country" type="text" class="text" value="" />
+						<input id="venue_country" name="venue_country" type="text" class="text" value="" maxlength="249" />
 					</p>
 				</div>
 			</div>
